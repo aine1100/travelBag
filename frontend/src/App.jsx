@@ -1,6 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import HotelPage from './pages/hotel'
 library.add(fas)
@@ -11,6 +10,7 @@ import AboutUs from './pages/about'
 import ContactUs from './pages/contact'
 import RegisterForm from './pages/register'
 import LoginForm from './pages/login'
+import Dashboard from './dashboard/dashboard'
 const routes=createBrowserRouter([
   {
     path:"/",
@@ -35,6 +35,9 @@ const routes=createBrowserRouter([
   {
     path:"/login",
     element:<LoginForm/>
+  },{
+    path:"/dashboard",
+    element:<Dashboard/>
   }
 ])
 function App() {

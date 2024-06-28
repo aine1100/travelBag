@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 150px;
+    border: 1px solid rgb(58, 176, 255);
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    outline: none;
+}
+
+textarea {
+    height: 100px;
+    width: 370px;
+    border: 1px solid rgb(58, 176, 255);
+    border-radius: 5px;
+    outline: none;
+
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+textarea::placeholder {
+    text-align: center;
+
+}
+@media (max-width:420px) {
+      
+input[type="text"],
+input[type="email"] {
+    margin: 2px;
+}
+form{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+  }
+textarea{
+    width: 150px;
+}
+#reset{
+    margin-left: 0;
+}
+
+}

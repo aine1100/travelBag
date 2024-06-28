@@ -1,0 +1,17 @@
+@media (max-width:420px) {
+    .content{
+        text-align: center;
+     
+    }
+    .aboutusimage{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .aboutusimage button{
+        margin-left: 100px;
+    }
+ 
+
+}

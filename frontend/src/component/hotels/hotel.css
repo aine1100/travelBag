@@ -1,0 +1,16 @@
+@media (max-width:420px) {
+    .hotels{
+        text-align: center;
+    }
+    .cards{
+     flex-direction: column;
+    }
+}
+@media (max-width:776px) {
+    .hotels{
+        text-align: center;
+    }
+    .cards{
+     flex-direction: column;
+    }
+}

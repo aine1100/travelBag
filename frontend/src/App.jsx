@@ -11,6 +11,7 @@ import ContactUs from './pages/contact'
 import RegisterForm from './pages/register'
 import LoginForm from './pages/login'
 import Dashboard from './dashboard/dashboard'
+import Bookings from './booking/booking'
 const routes=createBrowserRouter([
   {
     path:"/",
@@ -38,6 +39,9 @@ const routes=createBrowserRouter([
   },{
     path:"/dashboard",
     element:<Dashboard/>
+  },{
+    path:"/booking",
+    element:<Bookings/>
   }
 ])
 function App() {

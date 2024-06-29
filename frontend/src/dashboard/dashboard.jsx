@@ -11,31 +11,49 @@ function Dashboard() {
         <div className="dashboard-content">
           <h2>Dashboard</h2>
           <p>This is a quick review of your account information</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "60px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "60px" ,color:"white"}}>
             <div
               style={{
                 backgroundColor: " #007bff",
                 height: "200px",
                 width: "250px",
                 borderRadius: "5px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            ></div>
+            >
+              <p>Booking</p>
+            </div>
             <div
               style={{
                 backgroundColor: " #007bff",
                 height: "200px",
                 width: "250px",
                 borderRadius: "5px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            ></div>
+            >
+              <p>Places</p>
+            </div>
             <div
               style={{
                 backgroundColor: " #007bff",
                 height: "200px",
                 width: "250px",
                 borderRadius: "5px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            ></div>
+            >
+              <p>Approvals</p>
+            </div>
           </div>
         </div>
       </div>

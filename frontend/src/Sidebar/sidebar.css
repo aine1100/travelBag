@@ -37,8 +37,11 @@ nav ul li {
   padding: 10px 0;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  color: black;
 }
-
+Link{
+  color: black;
+}
 nav ul li.active,
 nav ul li:hover {
   background-color: #007bff;

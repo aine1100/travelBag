@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './sidebar.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   const [user, setUser] = useState({});
@@ -37,7 +38,7 @@ function Sidebar() {
       <nav>
         <ul>
           <li className="active">Dashboard</li>
-          <li>Bookings</li>
+          <li><Link style={{textDecoration:"none"}}>Bookings</Link></li>
           <li>Places</li>
           <li>Profile</li>
         </ul>

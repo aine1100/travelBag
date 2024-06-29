@@ -41,7 +41,6 @@ const routes=createBrowserRouter([
   }
 ])
 function App() {
-  console.log("error")
 return(
   <div>
   <RouterProvider router={routes}/>

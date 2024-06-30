@@ -1,3 +1,6 @@
+body{
+  overflow:visible ;
+}
 .dashboard-container {
   display: flex;
 }

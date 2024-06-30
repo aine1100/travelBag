@@ -7,7 +7,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 
 const app = express();
 const Users = require("./models/user.model");
@@ -15,7 +14,10 @@ const Users = require("./models/user.model");
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/booking")
+mongoose.connect("mongodb://localhost:27017/booking", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => {
         console.log("Connected to the database");
         app.listen(5000, () => {
@@ -36,7 +38,7 @@ app.post("/register", async (req, res) => {
     }
 
     try {
-        const checkUser = await Users.findOne({ email: email });
+        const checkUser = await Users.findOne({ email });
 
         if (checkUser) {
             return res.status(400).send("That email has been used");
@@ -64,7 +66,7 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-        const checkUser = await Users.findOne({ email: email });
+        const checkUser = await Users.findOne({ email });
 
         if (!checkUser) {
             return res.status(400).send("The user is not registered");
@@ -117,3 +119,34 @@ app.get("/me", authenticateToken, async (req, res) => {
 app.get("/protected", authenticateToken, (req, res) => {
     res.send("This is a protected route, you are welcomed");
 });
+
+const bookingSchema = new mongoose.Schema({
+  name: String,
+  image: String,
+  rating: Number,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+});
+
+const Booking = mongoose.model('Booking', bookingSchema);
+
+app.post('/api/book', authenticateToken, async (req, res) => {
+    const { name, image, rating } = req.body;
+    const newBooking = new Booking({ name, image, rating, user: req.user.id });
+  
+    try {
+      await newBooking.save();
+      res.status(201).json(newBooking);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to book place' });
+    }
+  });
+  
+
+app.get('/api/bookings', authenticateToken, async (req, res) => {
+    try {
+      const bookings = await Booking.find({ user: req.user.id });
+      res.status(200).json(bookings);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch bookings' });
+    }
+  });

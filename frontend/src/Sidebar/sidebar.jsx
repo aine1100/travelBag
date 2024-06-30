@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import './sidebar.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Sidebar() {
   const [user, setUser] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
         if (!token) {
           console.log("No token found");
           return;
@@ -37,13 +38,22 @@ function Sidebar() {
       </div>
       <nav>
         <ul>
-          <li className="active">Dashboard</li>
-          <li><Link  to="/booking" style={{textDecoration:"none"}}>Bookings</Link></li>
-          <li > <Link to= "/place" style={{textDecoration:"none"}}>Places</Link></li>
-          <li>Profile</li>
+          <li className={location.pathname === "/" ? "active" : ""}>
+            <Link to="/">Dashboard</Link>
+          </li>
+          <li className={location.pathname === "/booking" ? "active" : ""}>
+            <Link to="/booking">Bookings</Link>
+          </li>
+          <li className={location.pathname === "/place" ? "active" : ""}>
+            <Link to="/place">Places</Link>
+          </li>
+          <li className={location.pathname === "/profile" ? "active" : ""}>
+            <Link to="/profile">Profile</Link>
+          </li>
         </ul>
-        <button> <Link style={{textDecoration:"none",color:"white"}} to="/login" >Log out</Link></button>
-
+        <button>
+          <Link to="/login" style={{ textDecoration: "none", color: "white" }}>Log out</Link>
+        </button>
       </nav>
     </div>
   );

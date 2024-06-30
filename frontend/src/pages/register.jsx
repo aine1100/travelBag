@@ -24,6 +24,7 @@ export default function RegisterForm() {
                 console.log(uservalues);
             })
             .catch((err) => {
+                toast.error(err)
                 console.log(err);
                 toast.error("Failed to register");
             });

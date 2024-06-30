@@ -24,12 +24,4 @@
   .greeting p {
     margin: 0 5px;
   }
-  .logout button {
-    margin-top: auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
+ 

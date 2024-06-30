@@ -12,6 +12,7 @@ import RegisterForm from './pages/register'
 import LoginForm from './pages/login'
 import Dashboard from './dashboard/dashboard'
 import Bookings from './booking/booking'
+import Places from './places/place'
 const routes=createBrowserRouter([
   {
     path:"/",
@@ -42,6 +43,9 @@ const routes=createBrowserRouter([
   },{
     path:"/booking",
     element:<Bookings/>
+  },{
+    path:"/place",
+    element:<Places/>
   }
 ])
 function App() {

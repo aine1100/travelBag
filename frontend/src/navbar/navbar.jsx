@@ -1,5 +1,4 @@
 import './navbar.css';
-import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -13,7 +12,6 @@ function Navbar() {
           <p>VD2020 - 11:00</p>
         </div>
         <div className="logout">
-        <button> <Link style={{textDecoration:"none",color:"white"}}>Log out</Link></button>
       </div>
       </div>
     </div>

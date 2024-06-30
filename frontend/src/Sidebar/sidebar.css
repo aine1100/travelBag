@@ -31,6 +31,17 @@ nav ul {
   gap: 20px;
 
 }
+nav button {
+  margin-top: auto;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 60px;
+  margin-top: 30px;
+}
+
 
 nav ul li {
   cursor: pointer;

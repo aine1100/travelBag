@@ -38,10 +38,12 @@ function Sidebar() {
       <nav>
         <ul>
           <li className="active">Dashboard</li>
-          <li><Link style={{textDecoration:"none"}}>Bookings</Link></li>
-          <li>Places</li>
+          <li><Link  to="/booking" style={{textDecoration:"none"}}>Bookings</Link></li>
+          <li > <Link to= "/place" style={{textDecoration:"none"}}>Places</Link></li>
           <li>Profile</li>
         </ul>
+        <button> <Link style={{textDecoration:"none",color:"white"}} to="/login" >Log out</Link></button>
+
       </nav>
     </div>
   );

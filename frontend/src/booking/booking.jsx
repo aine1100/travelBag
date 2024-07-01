@@ -53,8 +53,13 @@ function Bookings() {
                   <th style={{ padding: '12px', borderBottom: '2px solid #ddd' }}>Rating</th>
                 </tr>
               </thead>
-              <tbody>
+                {currentBookings.length === 0 ? ( 
+                  <p style={{textAlign:"center"}}>no Bookings yet</p>
+                ):(
+                  <tbody>
+
                 {currentBookings.map((booking, index) => (
+              
                   <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
                     <td style={{ padding: '12px' }}>
                       <img src={booking.image} alt={booking.name} height="100" width="150" style={{ borderRadius: '5px' }} />
@@ -65,7 +70,10 @@ function Bookings() {
                     </td>
                   </tr>
                 ))}
-              </tbody>
+                              </tbody>
+
+              )
+              }
             </table>
             <div style={{ marginTop: '20px', textAlign: 'center' }}>
               {bookings.length > bookingsPerPage && (

@@ -31,6 +31,16 @@ function Places() {
       image: imageOne,
       rating: 5,
     }
+    ,{
+      name:"peru",
+      image: imageOne,
+      rating: 5,
+    }
+    ,{
+      name:"venezualla",
+      image: imageOne,
+      rating: 5,
+    }
   ];
 
   const indexOfLastBooking = currentPage * placePerPage;
@@ -95,7 +105,7 @@ function Places() {
                 <img src={place.image} alt={place.name} height="150px" width="200px" style={{ borderRadius: "5px" }} />
                 <div>
                   <p>{place.name}</p>
-                  <p>{Array(place.rating).fill().map((_, i) => <FaStar key={i} />)}</p>
+                  <p>{Array(place.rating).fill().map((_, i) => <FaStar key={i} style={{color:"yellow"}}/>)}</p>
                 </div>
                 <button onClick={() => handleBook(place)}>Book now</button>
               </div>

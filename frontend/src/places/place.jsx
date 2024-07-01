@@ -10,42 +10,24 @@ import { useState } from "react";
 function Places() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [placePerPage]=useState(3)
+  const [placePerPage] = useState(3);
+
   const places = [
-    {
-      name: 'Kigali Rwanda',
-      image: imageOne,
-      rating: 5,
-    },
-    {
-      name: 'England',
-      image: imageOne,
-      rating: 4,
-    },
-    {
-      name: 'Spain',
-      image: imageOne,
-      rating: 5,
-    },{
-      name:"italy",
-      image: imageOne,
-      rating: 5,
-    }
-    ,{
-      name:"peru",
-      image: imageOne,
-      rating: 5,
-    }
-    ,{
-      name:"venezualla",
-      image: imageOne,
-      rating: 5,
-    }
+    { name: 'Kigali Rwanda', image: imageOne, rating: 5 },
+    { name: 'England', image: imageOne, rating: 4 },
+    { name: 'Spain', image: imageOne, rating: 5 },
+    { name: 'Italy', image: imageOne, rating: 5 },
+    { name: 'Peru', image: imageOne, rating: 5 },
+    { name: 'Venezuela', image: imageOne, rating: 5 },
   ];
 
-  const indexOfLastBooking = currentPage * placePerPage;
-  const indexOfFirstBooking = indexOfLastBooking - placePerPage;
-  const currentPlace = places.slice(indexOfFirstBooking, indexOfLastBooking);
+  const filteredPlaces = places.filter(place => 
+    place.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastPlace = currentPage * placePerPage;
+  const indexOfFirstPlace = indexOfLastPlace - placePerPage;
+  const currentPlaces = filteredPlaces.slice(indexOfFirstPlace, indexOfLastPlace);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -71,9 +53,6 @@ function Places() {
       toast.error('Failed to book place.');
     }
   };
-  const filteredPlaces = places.filter(place => 
-    place.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <>
@@ -86,7 +65,7 @@ function Places() {
             <h2>Places</h2>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "50px", gap: "50px" }}>
-            {currentPlace .map((place, index) => (
+            {currentPlaces.map((place, index) => (
               <div
                 key={index}
                 style={{
@@ -105,24 +84,23 @@ function Places() {
                 <img src={place.image} alt={place.name} height="150px" width="200px" style={{ borderRadius: "5px" }} />
                 <div>
                   <p>{place.name}</p>
-                  <p>{Array(place.rating).fill().map((_, i) => <FaStar key={i} style={{color:"yellow"}}/>)}</p>
+                  <p>{Array(place.rating).fill().map((_, i) => <FaStar key={i} style={{ color: "yellow" }} />)}</p>
                 </div>
                 <button onClick={() => handleBook(place)}>Book now</button>
               </div>
             ))}
           </div>
           <div style={{ marginTop: '20px', textAlign: 'center' }}>
-              {places.length > placePerPage && (
-                <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', justifyContent: 'center' }}>
-                  {Array(Math.ceil(places.length / placePerPage)).fill().map((_, index) => (
-                    <li key={index} style={{ margin: '0 5px', cursor: 'pointer', textDecoration: currentPage === index + 1 ? 'underline' : 'none' }} onClick={() => paginate(index + 1)}>
-                      {index + 1}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
- 
+            {filteredPlaces.length > placePerPage && (
+              <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', justifyContent: 'center' }}>
+                {Array(Math.ceil(filteredPlaces.length / placePerPage)).fill().map((_, index) => (
+                  <li key={index} style={{ margin: '0 5px', cursor: 'pointer', textDecoration: currentPage === index + 1 ? 'underline' : 'none' }} onClick={() => paginate(index + 1)}>
+                    {index + 1}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookingsPerPage] = useState(2); // Number of bookings per page
+  const [bookingsPerPage] = useState(2); 
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -30,12 +30,10 @@ function Bookings() {
     fetchBookings();
   }, []);
 
-  // Logic for pagination
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
   const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (

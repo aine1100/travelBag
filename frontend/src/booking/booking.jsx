@@ -67,7 +67,6 @@ function Bookings() {
                 ))}
               </tbody>
             </table>
-            {/* Pagination controls */}
             <div style={{ marginTop: '20px', textAlign: 'center' }}>
               {bookings.length > bookingsPerPage && (
                 <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', justifyContent: 'center' }}>

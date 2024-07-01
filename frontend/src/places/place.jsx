@@ -5,8 +5,12 @@ import { FaStar } from "react-icons/fa";
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 function Places() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [placePerPage]=useState(3)
   const places = [
     {
       name: 'Kigali Rwanda',
@@ -22,8 +26,18 @@ function Places() {
       name: 'Spain',
       image: imageOne,
       rating: 5,
-    },
+    },{
+      name:"italy",
+      image: imageOne,
+      rating: 5,
+    }
   ];
+
+  const indexOfLastBooking = currentPage * placePerPage;
+  const indexOfFirstBooking = indexOfLastBooking - placePerPage;
+  const currentPlace = places.slice(indexOfFirstBooking, indexOfLastBooking);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleBook = async (place) => {
     try {
@@ -47,6 +61,9 @@ function Places() {
       toast.error('Failed to book place.');
     }
   };
+  const filteredPlaces = places.filter(place => 
+    place.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -54,12 +71,12 @@ function Places() {
       <div className="dashboard-container">
         <Sidebar />
         <div className="main-content">
-          <Navbar />
+          <Navbar onSearch={setSearchTerm} />
           <div className="dashboard-content">
-            <h2>Bookings</h2>
+            <h2>Places</h2>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "50px", gap: "50px" }}>
-            {places.map((place, index) => (
+            {currentPlace .map((place, index) => (
               <div
                 key={index}
                 style={{
@@ -83,8 +100,19 @@ function Places() {
                 <button onClick={() => handleBook(place)}>Book now</button>
               </div>
             ))}
-            <button style={{ marginLeft: "400px", marginTop: "-20px" }}>Load more</button>
           </div>
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+              {places.length > placePerPage && (
+                <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', justifyContent: 'center' }}>
+                  {Array(Math.ceil(places.length / placePerPage)).fill().map((_, index) => (
+                    <li key={index} style={{ margin: '0 5px', cursor: 'pointer', textDecoration: currentPage === index + 1 ? 'underline' : 'none' }} onClick={() => paginate(index + 1)}>
+                      {index + 1}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+ 
         </div>
       </div>
     </>

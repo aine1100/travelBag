@@ -38,8 +38,8 @@ function Sidebar() {
       </div>
       <nav>
         <ul>
-          <li className={location.pathname === "/" ? "active" : ""}>
-            <Link to="/">Dashboard</Link>
+          <li className={location.pathname === "/dashboard" ? "active" : ""}>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li className={location.pathname === "/booking" ? "active" : ""}>
             <Link to="/booking">Bookings</Link>

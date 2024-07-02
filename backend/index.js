@@ -7,7 +7,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
-const Booking=require("./models/booking.model")
+const Booking = require("./models/booking.model");
 
 const app = express();
 const Users = require("./models/user.model");
@@ -118,7 +118,6 @@ app.get("/protected", authenticateToken, (req, res) => {
     res.send("This is a protected route, you are welcomed");
 });
 
-
 app.post('/api/book', authenticateToken, async (req, res) => {
     const { name, image, rating } = req.body;
     const newBooking = new Booking({ name, image, rating, user: req.user.id });
@@ -129,7 +128,7 @@ app.post('/api/book', authenticateToken, async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: 'Failed to book place' });
     }
-  });
+});
   
 app.get('/api/bookings', authenticateToken, async (req, res) => {
     try {
@@ -138,4 +137,17 @@ app.get('/api/bookings', authenticateToken, async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: 'Failed to fetch bookings' });
     }
-  });
+});
+
+app.delete('/api/bookings/:id', authenticateToken, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedBooking = await Booking.findOneAndDelete({ _id: id, user: req.user.id });
+        if (!deletedBooking) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+        res.status(200).json(deletedBooking);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to delete the booking" });
+    }
+});

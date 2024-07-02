@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from "../navbar/navbar";
 import Sidebar from "../Sidebar/sidebar";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaTrash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookingsPerPage] = useState(2); 
+  const [bookingsPerPage] = useState(2);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -29,6 +29,22 @@ function Bookings() {
 
     fetchBookings();
   }, []);
+
+  const deleteBooking = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:5000/api/bookings/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setBookings(bookings.filter(booking => booking._id !== id));
+      toast.success('Booking deleted successfully.');
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      toast.error('Failed to delete booking.');
+    }
+  };
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
@@ -51,29 +67,29 @@ function Bookings() {
                   <th style={{ padding: '12px', borderBottom: '2px solid #ddd' }}>Image</th>
                   <th style={{ padding: '12px', borderBottom: '2px solid #ddd' }}>Name</th>
                   <th style={{ padding: '12px', borderBottom: '2px solid #ddd' }}>Rating</th>
+                  <th style={{ padding: '12px', borderBottom: '2px solid #ddd' }}>Delete</th>
                 </tr>
               </thead>
-                {currentBookings.length === 0 ? ( 
-                  <p style={{textAlign:"center"}}>no Bookings yet</p>
-                ):(
-                  <tbody>
-
-                {currentBookings.map((booking, index) => (
-              
-                  <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
-                    <td style={{ padding: '12px' }}>
-                      <img src={booking.image} alt={booking.name} height="100" width="150" style={{ borderRadius: '5px' }} />
-                    </td>
-                    <td style={{ padding: '12px' }}>{booking.name}</td>
-                    <td style={{ padding: '12px' }}>
-                      {Array(booking.rating).fill().map((_, i) => <FaStar key={i} style={{ color: '#ffbf00' }} />)}
-                    </td>
-                  </tr>
-                ))}
-                              </tbody>
-
-              )
-              }
+              {currentBookings.length === 0 ? (
+                <p style={{ textAlign: "center" }}>No bookings yet</p>
+              ) : (
+                <tbody>
+                  {currentBookings.map((booking, index) => (
+                    <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
+                      <td style={{ padding: '12px' }}>
+                        <img src={booking.image} alt={booking.name} height="100" width="150" style={{ borderRadius: '5px' }} />
+                      </td>
+                      <td style={{ padding: '12px' }}>{booking.name}</td>
+                      <td style={{ padding: '12px' }}>
+                        {Array(booking.rating).fill().map((_, i) => <FaStar key={i} style={{ color: '#ffbf00' }} />)}
+                      </td>
+                      <td style={{ padding: '12px' }}>
+                        <FaTrash style={{ color: "red", cursor: "pointer" }} onClick={() => deleteBooking(booking._id)} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
             <div style={{ marginTop: '20px', textAlign: 'center' }}>
               {bookings.length > bookingsPerPage && (
